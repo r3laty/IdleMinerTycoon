@@ -23,17 +23,42 @@ public class BaseMiner : MonoBehaviour
         {
             if (IsTimeToCollect)
             {
-                CollictGold();
+                CollectGold();
+            }
+            else
+            {
+                DepositGold();
             }
         })).Play();
     }
 
-    protected virtual void CollictGold()
+    protected virtual void CollectGold()
     {
 
     }
     protected virtual IEnumerator IECollect(int collectGold, float collectTime)
     {
         yield return null;
+    }
+    protected virtual void DepositGold()
+    {
+
+    }
+    public void RotateMiner(int direction)
+    {
+        switch (direction)
+        {
+            case -1:
+                transform.localScale = new Vector3(-1, 1, 1);
+                break;
+
+            case 1:
+                transform.localScale = new Vector3(1, 1, 1);
+                break;
+        }
+    }
+    public void ChangeGoal()
+    {
+        IsTimeToCollect = !IsTimeToCollect;
     }
 }
