@@ -7,38 +7,40 @@ public class ShaftMiner : BaseMiner
     [SerializeField] private Transform shaftMiningLocation;
     [SerializeField] private Transform shaftDepositLocation;
 
+    private Animator _animator => GetComponent<Animator>();
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            // walk animation (true)
+            _animator.SetBool("IsWalking", true);
             MoveMiner(shaftMiningLocation.position);
         }
     }
 
     protected override void CollectGold()
     {
-        // walk animation (false)
+        _animator.SetBool("IsWalking", false);
         float collectTime = GoldCapacity / GoldPerSecond;
         StartCoroutine(IECollect(GoldCapacity, collectTime));
     }
     protected override IEnumerator IECollect(int collectGold, float collectTime)
     {
-        // mining animation (true)
+        _animator.SetBool("IsMining", true);
         yield return new WaitForSeconds(collectTime);
-        // mining animation (false)
+        _animator.SetBool("IsMining", false);
         CurrentGold = collectGold;
         ChangeGoal();
-        // walk animation (true)
+        _animator.SetBool("IsWalking", true);
         RotateMiner(-1);
         MoveMiner(shaftDepositLocation.position);
     }
     protected override void DepositGold()
     {
-        // walk animation (false)
+        _animator.SetBool("IsWalking", false);
         CurrentGold = 0;
         ChangeGoal();
-        // walk animation (true)
+        _animator.SetBool("IsWalking", true);
         RotateMiner(1);
         MoveMiner(shaftMiningLocation.position);
     }
