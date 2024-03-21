@@ -3,19 +3,17 @@ using UnityEngine;
 
 public class ShaftMiner : BaseMiner
 {
-    [Header("}-----Own properties-----{")]
-    [SerializeField] private Transform shaftMiningLocation;
-    [SerializeField] private Transform shaftDepositLocation;
+    public Shaft CurrentShaft;
 
+    [HideInInspector] public Transform ShaftMiningLocation;
+    [HideInInspector] public Transform ShaftDepositLocation;
+    
+    private Shaft _currentShaft => GetComponent<Shaft>();
     private Animator _animator => GetComponent<Animator>();
-
-    private void Update()
+    public void GoToOre()
     {
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            _animator.SetBool("IsWalking", true);
-            MoveMiner(shaftMiningLocation.position);
-        }
+        _animator.SetBool("IsWalking", true);
+        MoveMiner(ShaftMiningLocation.position);
     }
 
     protected override void CollectGold()
@@ -33,15 +31,16 @@ public class ShaftMiner : BaseMiner
         ChangeGoal();
         _animator.SetBool("IsWalking", true);
         RotateMiner(-1);
-        MoveMiner(shaftDepositLocation.position);
+        MoveMiner(ShaftDepositLocation.position);
     }
     protected override void DepositGold()
     {
         _animator.SetBool("IsWalking", false);
+        CurrentShaft.CurrentDeposit.DepositGold(CurrentGold);
+
         CurrentGold = 0;
         ChangeGoal();
-        _animator.SetBool("IsWalking", true);
         RotateMiner(1);
-        MoveMiner(shaftMiningLocation.position);
+        GoToOre();
     }
 }
