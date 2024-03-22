@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Shaft : MonoBehaviour
@@ -13,7 +11,6 @@ public class Shaft : MonoBehaviour
     [SerializeField] private Transform depositLocation;
     [SerializeField] private Transform depositInstatiatePosition;
 
-    [Space]
     [HideInInspector] public Deposit CurrentDeposit;
 
     private GameObject _minerContainer;
