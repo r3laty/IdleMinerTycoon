@@ -6,7 +6,16 @@ public class ShaftUpgrade : BaseUpgrade
     {
         if (_shaft != null)
         {
-            Debug.Log("Working");
+            foreach (var miner in _shaft.Miners)
+            {
+                miner.CollectCapacity *= (int)collectCapacityMultiplier;
+                miner.CollectPerSecond *= collectPerSecondMultiplier;
+
+                if (CurrentLvl % 10 == 0)
+                {
+                    miner.MoveSpeed *= moveSpeedMultiplier;
+                }
+            }
         }
     }
 }

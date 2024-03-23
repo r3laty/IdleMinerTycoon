@@ -5,21 +5,33 @@ using UnityEngine;
 
 public class BaseMiner : MonoBehaviour
 {
-    [HideInInspector] public int GoldCapacity = 200;
-    [HideInInspector] public float GoldPerSecond = 50;
+    [SerializeField] private int initialCollectCapacity = 200;
+    [SerializeField] private float initialGoldPerSecond = 50;
 
-    [SerializeField] private float moveSpeed = 5;
+    [SerializeField] private float initialMoveSpeed = 5;
+    
+    // Character skills
+    public float MoveSpeed { get; set; }
+    public int CollectCapacity { get; set; }
+    public float CollectPerSecond { get; set; }
 
+    // Gold
     public int CurrentGold { get; set; }
+
+    //Collect
     public bool IsTimeToCollect { get; set; }
     private void Awake()
     {
+        MoveSpeed = initialMoveSpeed;
+        CollectCapacity = initialCollectCapacity;
+        CollectPerSecond = initialGoldPerSecond;
+
         IsTimeToCollect = true;
         CurrentGold = 0;
     }
     public void MoveMiner(Vector3 newPosition)
     {
-        transform.DOMove(newPosition, 10 / moveSpeed).OnComplete((() =>
+        transform.DOMove(newPosition, 10 / MoveSpeed).OnComplete((() =>
         {
             if (IsTimeToCollect)
             {

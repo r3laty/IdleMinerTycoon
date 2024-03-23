@@ -1199,6 +1199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldCount: {fileID: 1383553501}
+  lvlCount: {fileID: 670136791}
 --- !u!114 &1851331284
 MonoBehaviour:
   m_ObjectHideFlags: 0

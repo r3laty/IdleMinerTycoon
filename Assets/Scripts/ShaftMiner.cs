@@ -19,8 +19,8 @@ public class ShaftMiner : BaseMiner
     protected override void CollectGold()
     {
         _animator.SetBool("IsWalking", false);
-        float collectTime = GoldCapacity / GoldPerSecond;
-        StartCoroutine(IECollect(GoldCapacity, collectTime));
+        float collectTime = CollectCapacity / CollectPerSecond;
+        StartCoroutine(IECollect(CollectCapacity, collectTime));
     }
     protected override IEnumerator IECollect(int collectGold, float collectTime)
     {

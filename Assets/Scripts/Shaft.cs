@@ -1,10 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Shaft : MonoBehaviour
 {
     [Header("Prefabs")]
-    [SerializeField] ShaftMiner minerPrefab;
-    [SerializeField] Deposit depositPrefab;
+    [SerializeField] private ShaftMiner minerPrefab;
+    [SerializeField] private Deposit depositPrefab;
 
     [Header("Locations")]
     [SerializeField] private Transform miningLocation;
@@ -12,7 +13,9 @@ public class Shaft : MonoBehaviour
     [SerializeField] private Transform depositInstatiatePosition;
 
     [HideInInspector] public Deposit CurrentDeposit;
+    [HideInInspector] public List<ShaftMiner> Miners => _miners;
 
+    private List<ShaftMiner> _miners = new List<ShaftMiner>();
     private GameObject _minerContainer;
     private void Start()
     {
@@ -37,6 +40,8 @@ public class Shaft : MonoBehaviour
         newMiner.CurrentShaft = this;
 
         newMiner.GoToOre();
+
+        _miners.Add(newMiner);
     }
     private void CreateDepositBox()
     {
